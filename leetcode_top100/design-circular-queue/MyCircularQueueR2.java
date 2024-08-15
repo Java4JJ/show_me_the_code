@@ -37,27 +37,24 @@
  * 操作数将在 1 至 1000 的范围内；
  * 请不要使用内置的队列库。
  */
+public class MyCircularQueueR2 {
 
-/**
- * 核心思想：
- * 变量头尾指针，和size
- * 如果到头了，从回0位置。
- */
-public class MyCircularQueueR1 {
+    public static void main(String[] args) {
+        MyCircularQueueR2 myCircularQueueR2 = new MyCircularQueueR2(3);
+        myCircularQueueR2.enQueue(1);
+        myCircularQueueR2.enQueue(2);
+        myCircularQueueR2.enQueue(3);
+    }
 
-    int[] data;
+    int[] stack;
     int size;
-
+    int limit;
     int left;
     int right;
 
-    int limit;
-
-    public MyCircularQueueR1(int k) {
-        data = new int[k];
-        size = 0;
-        left = 0;
-        right = 0;
+    public MyCircularQueueR2(int k) {
+        stack = new int[k];
+        left = right = size = 0;
         limit = k;
     }
 
@@ -71,9 +68,8 @@ public class MyCircularQueueR1 {
         if (isFull()) {
             return false;
         }
-        data[right] = value;
-        //如果尾部  到大最大了，回到0位置，否则+1
-        right = right == limit - 1 ? 0 : (right + 1);
+        stack[right] = value;
+        right = right == limit - 1 ? 0 : right + 1;
         size++;
         return true;
     }
@@ -87,7 +83,7 @@ public class MyCircularQueueR1 {
         if (isEmpty()) {
             return false;
         }
-        //如果头部到大最大了，回到0位置，否则+1
+
         left = left == limit - 1 ? 0 : left + 1;
         size--;
         return true;
@@ -102,7 +98,7 @@ public class MyCircularQueueR1 {
         if (isEmpty()) {
             return -1;
         }
-        return data[left];
+        return stack[left];
     }
 
     /**
@@ -114,9 +110,8 @@ public class MyCircularQueueR1 {
         if (isEmpty()) {
             return -1;
         }
-        //如果尾部等于0，那么上一个位置就是在limit-1位置，否则就是在tail-1
         int last = right == 0 ? limit - 1 : right - 1;
-        return data[last];
+        return stack[last];
     }
 
     /**
