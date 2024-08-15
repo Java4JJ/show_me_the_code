@@ -1,3 +1,5 @@
+import java.util.HashSet;
+
 /**
  * https://leetcode.cn/problems/intersection-of-two-linked-lists/description/?envType=study-plan-v2&envId=top-100-liked
  * 160. 相交链表
@@ -88,5 +90,77 @@ public class IntersectionOfTwoLinkedListsR1 {
         }
 
         return a1;
+    }
+
+    /**
+     * 解法2 思路：让长的链表先走，等长之后再一起走，如果有相等的，那就是相交点
+     */
+    public ListNode getIntersectionNode2(ListNode headA, ListNode headB) {
+        ListNode a1 = headA;
+        ListNode b1 = headB;
+
+        int diff = 0;
+        while (a1.next != null) {
+            a1 = a1.next;
+            diff++;
+        }
+
+        while (b1.next != null) {
+            b1 = b1.next;
+            diff--;
+        }
+
+        //如果尾都不相等，一定不相交
+        if (a1 != b1) {
+            return null;
+        }
+
+        //a1用来表示长的，b1用来表示短的
+        if (diff > 0) {
+            a1 = headA;
+            b1 = headB;
+        } else {
+            a1 = headB;
+            b1 = headA;
+        }
+
+        diff = Math.abs(diff);
+        while (diff-- > 0) {
+            a1 = a1.next;
+        }
+
+        while (a1 != null && b1 != null) {
+            if (a1 == b1) {
+                return a1;
+            }
+            a1 = a1.next;
+            b1 = b1.next;
+        }
+
+
+        return null;
+    }
+
+
+    /**
+     * 解法3 思路：使用容器
+     * 先把链表1存到hashset中，然后遍历链表b，看是否存在
+     */
+    public ListNode getIntersectionNode3(ListNode headA, ListNode headB) {
+        ListNode a1 = headA;
+        ListNode b1 = headB;
+        HashSet<ListNode> set = new HashSet<>();
+        while (a1 != null) {
+            set.add(a1);
+            a1 = a1.next;
+        }
+
+        while (b1 != null) {
+            if (set.contains(b1)) {
+                return b1;
+            }
+            b1 = b1.next;
+        }
+        return null;
     }
 }
