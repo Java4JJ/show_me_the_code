@@ -44,74 +44,50 @@
  * 0 <= value <= 1000
  * insertFront, insertLast, deleteFront, deleteLast, getFront, getRear, isEmpty, isFull  调用次数不大于 2000 次
  */
+public class MyCircularDequeR2 {
 
-/**
- * 核心思路
- */
-public class MyCircularDequeUsingArraysR1 {
-
-    int[] dqueue;
-
-    //头指针
+    int[] stack;
     int left;
-    //尾指针
     int right;
-
+    int limit;
     int size;
 
-    int limit;
-
-
-    public MyCircularDequeUsingArraysR1(int k) {
-        dqueue = new int[k];
-        left = 0;
-        right = 0;
-        size = 0;
+    public MyCircularDequeR2(int k) {
+        stack = new int[k];
+        right = left = size = 0;
         limit = k;
     }
 
-    /**
-     * boolean insertFront()：将一个元素添加到双端队列头部。 如果操作成功返回 true ，否则返回 false 。
-     */
     public boolean insertFront(int value) {
         if (isFull()) {
             return false;
         }
         if (isEmpty()) {
-            left = 0;
-            right = 0;
-            dqueue[0] = value;
+            left = right = 0;
+            stack[0] = value;
         } else {
-            //因为是从头部加入，如果是0，位置就是limit-1，否则头部往前移1位（head-1
             left = left == 0 ? limit - 1 : left - 1;
-            dqueue[left] = value;
+            stack[left] = value;
         }
         size++;
         return true;
     }
 
-    /**
-     * boolean insertLast() ：将一个元素添加到双端队列尾部。如果操作成功返回 true ，否则返回 false 。
-     */
     public boolean insertLast(int value) {
         if (isFull()) {
             return false;
         }
         if (isEmpty()) {
-            left = 0;
-            right = 0;
-            dqueue[0] = value;
+            left = right = 0;
+            stack[0] = value;
         } else {
             right = right == limit - 1 ? 0 : right + 1;
-            dqueue[right] = value;
+            stack[right] = value;
         }
         size++;
         return true;
     }
 
-    /**
-     * boolean deleteFront() ：从双端队列头部删除一个元素。 如果操作成功返回 true ，否则返回 false
-     */
     public boolean deleteFront() {
         if (isEmpty()) {
             return false;
@@ -121,9 +97,6 @@ public class MyCircularDequeUsingArraysR1 {
         return true;
     }
 
-    /**
-     * boolean deleteLast() ：从双端队列尾部删除一个元素。如果操作成功返回 true ，否则返回 false 。
-     */
     public boolean deleteLast() {
         if (isEmpty()) {
             return false;
@@ -133,25 +106,20 @@ public class MyCircularDequeUsingArraysR1 {
         return true;
     }
 
-    /**
-     * int getFront() )：从双端队列头部获得一个元素。如果双端队列为空，返回 -1 。
-     */
     public int getFront() {
         if (isEmpty()) {
             return -1;
         }
-        return dqueue[left];
+        return stack[left];
     }
 
-    /**
-     * int getRear() ：获得双端队列的最后一个元素。 如果双端队列为空，返回 -1 。
-     */
     public int getRear() {
         if (isEmpty()) {
             return -1;
         }
-        return dqueue[right];
+        return stack[right];
     }
+
 
     public boolean isEmpty() {
         return size == 0;
