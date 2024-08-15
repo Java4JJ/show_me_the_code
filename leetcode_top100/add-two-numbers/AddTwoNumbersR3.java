@@ -13,8 +13,7 @@
  * 输入：l1 = [9,9,9,9,9,9,9], l2 = [9,9,9,9]
  * 输出：[8,9,9,9,0,0,0,1]
  */
-public class AddTwoNumbersQ {
-
+public class AddTwoNumbersR3 {
 
     /**
      * 给你两个 非空 的链表，表示两个非负的整数。它们每位数字都是按照 逆序 的方式存储的，并且每个节点只能存储 一位 数字。
@@ -31,6 +30,26 @@ public class AddTwoNumbersQ {
      * 输出：[8,9,9,9,0,0,0,1]
      */
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        return null;
+        ListNode pre = null;
+        ListNode cur = null;
+        int carry = 0;
+        for (int sum, val; l1 != null || l2 != null; l1 = l1 == null ? null : l1.next, l2 = l2 == null ? null : l2.next) {
+            sum = (l1 == null ? 0 : l1.val) + (l2 == null ? 0 : l2.val) + carry;
+            val = sum % 10;
+            carry = sum / 10;
+            ListNode temp = new ListNode(val);
+            if (pre == null) {
+                pre = temp;
+                cur = pre;
+            } else {
+                cur.next = temp;
+                cur = cur.next;
+            }
+        }
+        if (carry == 1) {
+            cur.next = new ListNode(1);
+        }
+        return pre;
+
     }
 }
