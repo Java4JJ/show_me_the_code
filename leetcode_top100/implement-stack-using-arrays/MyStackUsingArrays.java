@@ -3,53 +3,38 @@
  */
 public class MyStackUsingArrays {
 
-    int[] stack;
-    int size;
-
-    //根据题目得到最大值
-
     public MyStackUsingArrays(int max) {
-        stack = new int[max];
-        size = 0;
     }
 
     /**
-     * void push(int x) 将元素 x 推到队列的末尾
-     *
-     * @param x
+     * void push(int x) 将元素 x 加入到栈中
      */
     public void push(int x) {
-        //把元素放到right的位置,然后++
-        stack[size++] = x;
+
     }
 
 
     /**
-     * int pop() 从队列的开头移除并返回元素
-     *
-     * @return
+     * int pop() 从栈顶移除并返回元素
      */
     public int pop() {
-        //弹出，则从left的位置开始，拿完后left++
-        return stack[--size];
+        return 0;
     }
 
 
     public int size() {
-        return size;
+        return 0;
     }
 
 
     /**
-     * int peek() 返回队列开头的元素
-     *
-     * @return
+     * int peek() 返回栈顶的元素，不删除
      */
     public int peek() {
-        return stack[size - 1];
+        return 0;
     }
 
     public boolean empty() {
-        return size == 0;
+        return true;
     }
 }
