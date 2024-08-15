@@ -1,3 +1,5 @@
 .idea
 python/venv
 python/python.iml
+*.iml
+out
